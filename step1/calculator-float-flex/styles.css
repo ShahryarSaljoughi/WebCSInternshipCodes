@@ -16,6 +16,11 @@ div.left-section {
     flex-basis: 85%;
     flex-shrink: 10;
 }
+.row.memory {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
 .row::after {
     content: "";
     clear: both;
@@ -72,8 +77,9 @@ div.left-section {
 .unit-btn, .memory-btn {
     font-weight: bold;
     font-size: 13px;
-    padding:30px;
+    padding:10px;
     float: left;
+    width: 10%;
 }
 
 /* .unit-btn + .unit-btn, .memory-btn + .memory-btn  {
