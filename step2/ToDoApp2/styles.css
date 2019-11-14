@@ -1,0 +1,83 @@
+
+* {
+  box-sizing: border-box;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+body {
+  padding: 10%;
+}
+.container {
+  display: flex;
+  margin: auto;
+  width: 80%;
+  flex-direction: row;
+}
+
+div#leftPanel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 1;
+}
+
+div#rightPanel {
+  flex: 3;
+  flex-shrink: 1;
+}
+
+input {
+  padding: 5px;
+}
+
+.stack-item {
+  margin: 7px 0px 7px 0px;
+  display: block;
+}
+
+.createButton {
+  background-color: rgb(4, 129, 71);
+  color: white;
+  padding: 10px;
+  font-weight: bold;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.createButton:hover {
+  background-color: rgb(74, 119, 7);
+}
+
+.todo {
+  padding: 10px;
+  width: 80%;
+  position: relative; /*this is because it has a child who wants to be absolutely positioned!. */
+  margin: 10px auto 10px auto;
+  border-bottom: grey outset;
+}
+.todo:first-child {
+  margin: auto;
+}
+
+.close {
+  color: red;
+  font-weight: bold;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  cursor: pointer;
+}
+.title {
+  text-align: center;
+  display: block;
+  
+  font-size: 50px;
+}
+
+@media screen and (max-width: 992px) {
+  .container {
+    flex-direction: column;
+  }
+  .todo {
+    width: 100%;
+  }
+}
