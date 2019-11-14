@@ -1,0 +1,26 @@
+body {
+  background-color: brown;
+}
+
+#btn {
+  position: absolute;
+  max-width: 20%;
+  padding: 60px;
+  text-align: center;
+  color: black;
+  background: rgba(204, 204, 204, 0.5);
+  /* opacity: 0.3; */
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-family: cursive;
+  font-weight: bold;
+  border-radius: 15%;
+}
+
+#btn:hover{
+  box-shadow: 
+    10px 10px 5px rgb(116, 28, 32),
+    -10px -10px 5px rgb(116, 28, 32);
+  cursor: pointer;
+}
