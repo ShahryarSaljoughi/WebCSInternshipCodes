@@ -74,12 +74,18 @@ div.left-section {
     /* flex-wrap: wrap; */
 }
 
+.keypad {
+    display: flex;
+    flex-wrap: wrap;
+}
+.keypad .main-btn {
+    width: 19%;
+}
+
 .main-btn {
     box-sizing: border-box;
-    width: 11.11%;
     height: 62px;
-    line-height: 5vw;
-    float: left;
+    line-height: 62px;
     text-align: center;
 }
 
@@ -90,5 +96,13 @@ div.left-section {
     div.left-section {
         flex-basis: 95%;
         
+    }
+}
+@media screen and (max-width: 850px) {
+    .keypad .main-btn {
+        width: 24%;
+    }
+    #toRemove {
+        display: None;
     }
 }
