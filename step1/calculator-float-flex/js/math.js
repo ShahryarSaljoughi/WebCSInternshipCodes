@@ -1,20 +1,27 @@
 
-var current_math_expression = "";
+
+
+var currentExpression = {
+  jsExpression : "",
+  userFriendlyExpression: ""
+};
+
 var current_operand = {
   operand: "",
 };
 function get_result() {
-  return eval(current_math_expression);
+  return eval(math_expression);
 }
 
 function reset() {
-  current_math_expression = "";
+  math_expression = "";
 }
 
 function append(item) {
-  current_math_expression += item;
+  math_expression += item;
 }
 
 function remove_one_char() {
   
 }
+
