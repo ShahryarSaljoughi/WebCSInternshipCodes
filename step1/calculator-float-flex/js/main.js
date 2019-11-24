@@ -64,14 +64,45 @@ operatorJsEquivalent = {
     userFriendlyForm: function() {
       currentExpression.userFriendlyExpression +=  `1/(${current_operand.operand})`;
     }
-  } 
+  },
+  "x2": {
+    jsForm: function() {
+      currentExpression.jsExpression += `(${current_operand.operand**2})`;
+    },
+    userFriendlyForm() {
+      currentExpression.userFriendlyExpression += `sqr(${current_operand.operand})`;
+    }
+  },
+  "x3": {
+    jsForm: function() {
+      currentExpression.jsExpression += `(${current_operand.operand}**3)`;
+    },
+    userFriendlyForm() {
+      currentExpression.userFriendlyExpression += `cube(${current_operand.operand})`;
+    } 
+  },"√": {
+    jsForm: function() {
+      currentExpression.jsExpression += `Math.sqrt(${current_operand.operand})`;
+    },
+    userFriendlyForm() {
+      currentExpression.userFriendlyExpression += `√(${current_operand.operand})`;
+    } 
+  }
 }
 
 var unaryOperatorsFunctions = {
   "1/x": function () {
     return 1/current_operand.operand;
-  }
-  
+  },
+  "x2": function() {
+    return current_operand.operand ** 2;
+  },
+  "x3": function() {
+    return current_operand.operand ** 3;
+  },
+  "√": function() {
+    return Math.sqrt(current_operand.operand);
+  } 
 }
 function binaryOperatorButtonHandler(element) {
   if (shouldLoadOperandIntoExpression) {
@@ -80,7 +111,7 @@ function binaryOperatorButtonHandler(element) {
   else {
     shouldLoadOperandIntoExpression = true;
   }
-  updateResult();
+  evaluateResult();
   
   operatorJsEquivalent[element.innerText].jsForm();
   operatorJsEquivalent[element.innerText].userFriendlyForm();
@@ -93,7 +124,7 @@ function loadOperandIntoExpressions() {
   currentExpression.userFriendlyExpression += current_operand.operand;
 }
 
-function updateResult() {
+function evaluateResult() {
   current_operand.operand = eval(currentExpression.jsExpression);
 }
 
@@ -113,8 +144,12 @@ showResultElement = document.querySelector(".row.keypad div:nth-child(25)");
 showResultElement.addEventListener("click", showResult);
 
 function showResult() {
-  loadOperandIntoExpressions();
-  updateResult();
+  if (shouldLoadOperandIntoExpression) {
+    loadOperandIntoExpressions();
+  } else {
+    shouldLoadOperandIntoExpression = true;
+  }
+  evaluateResult();
   clearExpression();
   enteringNewOperand = true;
 }
