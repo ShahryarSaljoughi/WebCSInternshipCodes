@@ -52,10 +52,19 @@ input {
   width: 80%;
   position: relative; /*this is because it has a child who wants to be absolutely positioned!. */
   margin: 10px auto 10px auto;
-  border-bottom: grey outset;
 }
 .todo:first-child {
   margin: auto;
+}
+.completed {
+  border: rgb(4, 129, 71) solid;
+  border-radius: 10px;
+  background-color: rgba(4, 129, 71, 0.43);
+}
+.not-completed {
+  border: #0000ff6b solid;
+  border-radius: 10px;
+  background-color: rgba(6, 110, 230, 0.47);
 }
 
 .close {
@@ -73,6 +82,25 @@ input {
   font-size: 50px;
 }
 
+.removeButtonContainer {
+  width: 30px;
+  height: 30px; 
+  position: absolute;
+  right: 5px;
+  margin:  auto;
+  top:  0px;
+  z-index: 1;
+}
+.svg {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+}
+
+.position-right {
+  position: absolute;
+  right: 5px;
+}
 @media screen and (max-width: 992px) {
   .container {
     flex-direction: column;
