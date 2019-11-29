@@ -35,12 +35,24 @@ input {
 }
 
 .createButton {
-  background-color: rgb(4, 129, 71);
+  background-color: rgba(42, 129, 89, 0.486);
   color: white;
+}
+
+.button {
   padding: 10px;
   font-weight: bold;
   border-radius: 10px;
   cursor: pointer;
+}
+
+.yellowButton {
+  background-color: rgba(160, 160, 52, 0.507);
+  color: white;
+}
+
+.yellowButton:hover {
+  background-color: rgb(104, 104, 7);
 }
 
 .createButton:hover {
@@ -82,7 +94,7 @@ input {
   font-size: 50px;
 }
 
-.removeButtonContainer {
+.actionsButtonContainer {
   width: 30px;
   height: 30px; 
   position: absolute;
@@ -97,9 +109,25 @@ input {
   padding: 0;
 }
 
+span[class*="icon"] {
+  cursor: pointer;
+}
+
+.edit-icon {
+  float: right;
+}
+
+.todo-edit-mode {
+  background-color: rgba(209, 218, 221, 0.329);
+  border: solid blue 1px;
+}
+
 .position-right {
-  position: absolute;
-  right: 5px;
+  float: right;
+}
+
+.hidden {
+  display: none;
 }
 @media screen and (max-width: 992px) {
   .container {
