@@ -16,32 +16,73 @@ function renderItemOnPage(item) {
   var newTodo = document.createElement("div");
   newTodo.classList.add("todo");
   newTodo.classList.add("not-completed");
-  newTodo.classList.add("icon-parent");
-  newTodo.innerHTML += item[0];
+  newTodo.classList.add("parent-of-hidden");
   panel.appendChild(newTodo);
+  
+  var textNode = document.createElement("span");
+  textNode.classList.add("todo-text");
+  textNode.innerText = item[0];
+  newTodo.appendChild(textNode);
 
-  var actionsIconElement = document.createElement("span");
-  actionsIconElement.classList.add("actions-icon");
-  actionsIconElement.classList.add("position-right");
+  var removeButton = document.createElement("span");
+  removeButton.classList.add("remove-icon");
+  removeButton.classList.add("position-right");
+  removeButton.classList.add("visible-if-parent-hovered");
+  newTodo.appendChild(removeButton);
+  
+  var editButton = document.createElement("span");
+  editButton.classList.add("edit-icon", "visible-if-parent-hovered");
+  newTodo.appendChild(editButton);
+  
+  var completionCheckbox = document.createElement("input");
+  completionCheckbox.type = "checkbox";
+  completionCheckbox.onchange = (ev) => {
+    if (completionCheckbox.checked) {
+      newTodo.classList.remove("not-completed");
+      newTodo.classList.add("completed");
+    }
+    else {
+      newTodo.classList.remove("completed");
+      newTodo.classList.add("not-completed");
+    }
+  }
+  newTodo.insertBefore(completionCheckbox, newTodo.firstChild);
 
-  newTodo.appendChild(actionsIconElement);
-
-  var removeButtonElement = document.createElement("div");
-  removeButtonElement.classList.add("removeButtonContainer");
-  removeButtonElement.innerHTML = `
-  <svg preserveAspectRatio="none" class="svg" viewBox="0 0 100 100">
-      <polyline points="30,100 60,100 70,40 20,40 30,100" style="stroke: red;stroke-width:2;color: red;fill:  red;"></polyline>
-      <polygon points="14,40, 76,40 73,32 17,32" style="stroke: red;stroke-width: 3;fill: #ff9292;"></polygon>
-      <rect x="42" y="29" width="6" height="6" style="stroke: red;fill:  red;"></rect>
-      <line x1="33" y1="50" x2="33" y2="75" style="stroke: #ff9292; stroke-width: 3;"></line>
-      <line x1="43" y1="50" x2="43" y2="75" style="stroke: #ff9292; stroke-width: 3;"></line>
-      <line x1="53" y1="50" x2="53" y2="75" style="stroke: #ff9292; stroke-width: 3;"></line>
-    </svg>
-  `;
-  newTodo.appendChild(removeButtonElement);
-  removeButtonElement.addEventListener("click", (ev) => {
+  removeButton.addEventListener("click", (ev) => {
     items.splice(item[1], item[1]);
     panel.removeChild(newTodo);
   });
+
+  editButton.addEventListener("click", (ev) => {
+    // it is assumed that the todo text is the first span element:
+    var textNode = newTodo.querySelector("span");
+    textNode.classList.add("todo-edit-mode");
+    textNode.contentEditable = "true";
+  })
+  textNode.addEventListener("blur", (ev) => {
+    item[0] = textNode.innerText;
+    textNode.classList.remove("todo-edit-mode");
+    textNode.contentEditable = "false";
+  })
+
   iconsModule.triggerRendering();
+}
+
+/**
+ * @param  {string} className
+ */
+function hideElementsWithClass(className) {
+  elements = document.getElementsByClassName(className);
+  
+  for(var elem of elements) {
+    elem.classList.add("hidden");
+  }
+}
+
+function makeVisibleElementsWithClass(className) {
+  if(!className) { className = "todo";}
+  var elements = document.getElementsByClassName(className);
+  for(var elem of elements) {
+    elem.classList.remove("hidden");
+  }
 }
