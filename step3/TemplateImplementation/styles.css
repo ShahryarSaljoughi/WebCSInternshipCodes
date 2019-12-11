@@ -226,37 +226,41 @@ body {
 #ordersCharts {
   display: flex;
   flex-flow: row wrap;
-  width: 39%;
-
+  /* width: 39%; */
+  flex: 1 1;
 }
 #ordersTable {
-  width: 100%;
-  min-width: 600px;
-  max-width: 840px;
+  /* width: 100%; */
+  min-width: 700px;
+  /* max-width: 840px; */
   height: 100%;
   background-color: rgb(255, 255, 255);
   padding: 10px;
   border-radius: 8px;
   overflow-x: auto;
   margin-bottom: 30px;
+  flex: 2 1;
+  margin-right: 1%;
 }
 #ordersPieChart {
-  min-height: 30px;
+  /* min-height: 30px; */
   height: 40%;
-  width: 100%;
+  /* width: 100%; */
   background-color: rgb(255, 255, 255);
-  padding: 4%;
+  padding: 3%;
   border-radius: 8px;
+  flex: 1 1;
+  min-height: 173px;
+  min-width: 435px;
 }
 #ordersNormalChart {
-  min-height: 30px ;
   height: 48%;
-  width: 100%;
   background-color: #03a9f3;
   border-radius: 8px;
   padding: 20px;
-
-  
+  min-height: 173px;
+  flex: 1 1;  
+  min-width: 435px;
 }
 
 #ordersTable>table>thead>tr:first-child {
@@ -324,7 +328,7 @@ button.status {
 }
 
 #ordersNormalChart img {
-  height: 100%;
+  max-height: 100%;
 }
 
 .column {
