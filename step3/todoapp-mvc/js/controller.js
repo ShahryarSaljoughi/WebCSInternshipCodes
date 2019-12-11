@@ -20,6 +20,13 @@ function addTodo() {
       todoView.applyNotCompletedTodoStyle();
     }
   }
+
+  todoView.editButton.addEventListener("click", ev => {
+    todoView.editTodo();
+  });
+  todoView.textNode.addEventListener("blur", ev => {
+    todoView.extEditing(models.getAll()[todoItemIndex]);
+  })
 }
 
 /**

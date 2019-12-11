@@ -65,7 +65,7 @@ function createViewsModule() {
     textNode.contentEditable = "true";
   }
   function deactivateEditMode(textNode, todoItem) {
-    item[0] = textNode.innerText;
+    todoItem[0] = textNode.innerText;
     textNode.classList.remove("todo-edit-mode");
     textNode.contentEditable = "false";
   }
