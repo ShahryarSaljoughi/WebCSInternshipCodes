@@ -1,0 +1,139 @@
+
+* {
+  box-sizing: border-box;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+body {
+  padding: 10%;
+}
+.container {
+  display: flex;
+  margin: auto;
+  width: 80%;
+  flex-direction: row;
+}
+
+div#leftPanel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 1;
+}
+
+div#rightPanel {
+  flex: 3;
+  flex-shrink: 1;
+}
+
+input {
+  padding: 5px;
+}
+
+.stack-item {
+  margin: 7px 0px 7px 0px;
+  display: block;
+}
+
+.createButton {
+  background-color: rgba(42, 129, 89, 0.486);
+  color: white;
+}
+
+.button {
+  padding: 10px;
+  font-weight: bold;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.yellowButton {
+  background-color: rgba(160, 160, 52, 0.507);
+  color: white;
+}
+
+.yellowButton:hover {
+  background-color: rgb(104, 104, 7);
+}
+
+.createButton:hover {
+  background-color: rgb(74, 119, 7);
+}
+
+.todo {
+  padding: 10px;
+  width: 80%;
+  position: relative; /*this is because it has a child who wants to be absolutely positioned!. */
+  margin: 10px auto 10px auto;
+}
+.todo:first-child {
+  margin: auto;
+}
+.completed {
+  border: rgb(4, 129, 71) solid;
+  border-radius: 10px;
+  background-color: rgba(4, 129, 71, 0.43);
+}
+.not-completed {
+  border: #0000ff6b solid;
+  border-radius: 10px;
+  background-color: rgba(6, 110, 230, 0.47);
+}
+
+.close {
+  color: red;
+  font-weight: bold;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  cursor: pointer;
+}
+.title {
+  text-align: center;
+  display: block;
+  
+  font-size: 50px;
+}
+
+.actionsButtonContainer {
+  width: 30px;
+  height: 30px; 
+  position: absolute;
+  right: 5px;
+  margin:  auto;
+  top:  0px;
+  z-index: 1;
+}
+.svg {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+}
+
+span[class*="icon"] {
+  cursor: pointer;
+}
+
+.edit-icon {
+  float: right;
+}
+
+.todo-edit-mode {
+  background-color: rgba(209, 218, 221, 0.329);
+  border: solid blue 1px;
+}
+
+.position-right {
+  float: right;
+}
+
+.hidden {
+  display: none;
+}
+@media screen and (max-width: 992px) {
+  .container {
+    flex-direction: column;
+  }
+  .todo {
+    width: 100%;
+  }
+}
