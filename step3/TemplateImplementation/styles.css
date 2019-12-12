@@ -1,5 +1,5 @@
 body {
-  background-color: rgba(128, 128, 128, 0.384);
+  background-color: #f1f2f7; /*rgba(128, 128, 128, 0.384);*/
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   margin: 0px;
   color: darkslategray;
@@ -341,3 +341,71 @@ button.status {
   flex-flow: row nowrap;
 }
 
+#schedule {
+  display: flex;
+  justify-content: space-between;
+  flex-flow: row wrap;
+}
+#horizontalDivider {
+  width: 10px;
+  height: 0 px;
+}
+
+#live-chat , #todo-list {
+  flex: 1 1 500px;
+  background-color: rgb(255, 255, 255);
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+}
+
+.todoButtons {
+  display: inline-block;
+}
+
+.todoButtons * {
+  float: right;
+  margin-left: 5px;
+}
+.todoButtons:after {
+  clear:right;
+  content: "";
+  display: table;
+} 
+
+.todoText {
+  width: 80%;
+  display: inline-block;
+}
+
+.todoItem {
+  padding: 11px;
+  margin-top: 20px;
+  background-color: #fafafa;
+  font-size: small;
+}
+
+.messageContainerRight {
+  flex-flow: row nowrap;
+
+}
+.messageContainerLeft {
+  flex-flow: row-reverse nowrap;
+}
+.messageContainerLeft, .messageContainerRight {
+  display: flex;
+}
+
+.messageText {
+  color: #aeb3b7;
+  background-color: #f1f2f7;
+  padding: 10px;
+  border-radius: 10px;
+}
+.messageBody {
+  font-size: small;
+}
+
+#live-chat>div {
+  margin-bottom: 20px;
+}
