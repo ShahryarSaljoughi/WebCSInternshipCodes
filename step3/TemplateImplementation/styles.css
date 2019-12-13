@@ -102,7 +102,7 @@ body {
   float: right;
   /* 60 px is the height of fixed positioned header */
   transform: translate(0, 60px);
-  margin: 2%;
+  margin: 2% 2% 0px 2%;
 }
 
 
@@ -356,7 +356,7 @@ button.status {
   background-color: rgb(255, 255, 255);
   padding: 10px;
   border-radius: 8px;
-  margin-bottom: 30px;
+  margin-bottom: 30px;  
 }
 
 .todoButtons {
@@ -395,7 +395,10 @@ button.status {
 .messageContainerLeft, .messageContainerRight {
   display: flex;
 }
-
+.messageContainerLeft img, .messageContainerRight img {
+  max-height: 100%;
+  max-width: 100%;
+}
 .messageText {
   color: #aeb3b7;
   background-color: #f1f2f7;
@@ -408,4 +411,132 @@ button.status {
 
 #live-chat>div {
   margin-bottom: 20px;
+}
+.writer {
+  display: flex;
+  flex-flow: column nowrap;
+  text-align: center;
+}
+.writer>p {
+  font-size: small;
+}
+#writeMessage {
+  text-align: center;
+}
+#writeMessage>div {
+  width: 35px;
+  height: 35px;
+  background-image: url("picsOfTemplate/SendMessageIcon.PNG");
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: inline-block;
+  position: absolute;
+  margin-left: 20px;
+}
+#writeMessage input {
+  padding: 10px;
+  display: inline-block;
+  width: 80%;
+}
+
+#lastRow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+#lastRow>div {
+  width: 30%;
+  min-width: 350px;
+  height: 350px;
+  border-radius: 8px;
+  background-color: rgb(255, 255, 255);
+  padding:10px;
+  margin-bottom: 30px;
+}
+
+#Footer {
+  width: 100%;
+  margin: 60px auto 0px auto;
+  position: relative;
+  bottom: 0px;
+  padding: 40px;
+  font-size: small;
+  background-color: white;
+
+}
+
+#lastRow>div:nth-child(2)>div:nth-child(1) {
+  width: 100%;
+  background-color: #ab8ce4;
+  height: 50%;
+  outline: solid 10px #ab8ce4;
+  position: relative;
+}
+#lastRow>div:nth-child(2)>div:nth-child(1)>img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+#lastRow>div:nth-child(2)>div:nth-of-type(2)>img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+#lastRow>div:nth-child(2)>div:nth-of-type(2) {
+  position: relative;
+  width: 33%;
+}
+#lastRow>div:nth-of-type(2)>:nth-child(n+1) {
+  width: 33%;
+}
+#lastRow>div:nth-child(2) {
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+  align-content: stretch;
+  align-items: baseline;
+}
+#lastRow>:nth-of-type(2) span:nth-of-type(1) {
+  color: #0dba8f;
+  font-weight: bold;
+  font-size: small;
+}
+#lastRow>div:nth-of-type(2) span:nth-of-type(2) {
+  color: #03a9f3;
+  font-size: small;
+  font-weight: bold;
+}
+
+#calendar {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-evenly;
+}
+#calendar>div {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-evenly;
+}
+#calendar-first-row {
+  font-weight: bold;
+  font-size: smaller;
+}
+#calendar-first-row+div :nth-child(-n+5) {
+  color: #c5c6c7;
+}
+#calendar>div:nth-last-of-type(1) * {
+  color: #c5c6c7;
+}
+.changeMonth {
+  padding: 2px;
+  background-color: #eceff1;
+  color: #8a9398;
+}
+.month {
+  font-weight: bold;
+}
+#calendar>div:nth-of-type(1) {
+  justify-content: space-between;
 }
