@@ -7,24 +7,7 @@ function createControllerModule() {
     views.renderAllTodoItems(modelsAccessMethods.getAll());
   }
   
-  /**
-   * @param  {string} className
-   */
-  function hideElementsWithClass(className) {
-    elements = document.getElementsByClassName(className);
-    
-    for(var elem of elements) {
-      elem.classList.add("hidden");
-    }
-  }
   
-  function makeVisibleElementsWithClass(className) {
-    if(!className) { className = "todo";}
-    var elements = document.getElementsByClassName(className);
-    for(var elem of elements) {
-      elem.classList.remove("hidden");
-    }
-  }
   
   function removeTodo(todo) {
     modelsAccessMethods.removeItem(todo[1]);
@@ -54,8 +37,6 @@ function createControllerModule() {
     applyEdit: applyEdit,
     markAsDone: markAsDone,
     markAsNotDone: markAsNotDone,
-    makeVisibleElementsWithClass: makeVisibleElementsWithClass,
-    hideElementsWithClass: hideElementsWithClass
   }
 }
 

@@ -14,17 +14,17 @@ function createViewsModule() {
 
   var filterNotCompletedButton = document.getElementById("filterNotCompleted");
   filterNotCompletedButton.addEventListener("click", ev => {
-    controller.makeVisibleElementsWithClass();
-    controller.hideElementsWithClass('not-completed');
+    makeVisibleElementsWithClass();
+    hideElementsWithClass('not-completed');
   });
   var filterCompletedButton = document.getElementById("filterCompleted");
   filterCompletedButton.addEventListener("click", ev => {
-    controller.makeVisibleElementsWithClass();
-    controller.hideElementsWithClass('completed');
+    makeVisibleElementsWithClass();
+    hideElementsWithClass('completed');
   });
   var showAllButton = document.getElementById("showAll");
   showAllButton.addEventListener("click", () => {
-    controller.makeVisibleElementsWithClass();
+    makeVisibleElementsWithClass();
   })
 
   function renderAllTodoItems(todoArray) {
@@ -97,7 +97,24 @@ function createViewsModule() {
     }
 
   }
-
+  /**
+   * @param  {string} className
+   */
+  function hideElementsWithClass(className) {
+    elements = document.getElementsByClassName(className);
+    
+    for(var elem of elements) {
+      elem.classList.add("hidden");
+    }
+  }
+  
+  function makeVisibleElementsWithClass(className) {
+    if(!className) { className = "todo";}
+    var elements = document.getElementsByClassName(className);
+    for(var elem of elements) {
+      elem.classList.remove("hidden");
+    }
+  }
   return {
     renderAllTodoItems: renderAllTodoItems
   }
