@@ -3,8 +3,8 @@ var views = createViewsModule();
 function createControllerModule() {
   function addTodo(description) {
     if (!description) {return;}
-    var todoItemIndex = models.addItem(description);
-    views.renderAllTodoItems(models.getAll());
+    var todoItemIndex = modelsAccessMethods.addItem(description);
+    views.renderAllTodoItems(modelsAccessMethods.getAll());
   }
   
   /**
@@ -27,25 +27,25 @@ function createControllerModule() {
   }
   
   function removeTodo(todo) {
-    models.removeItem(todo[1]);
-    views.renderAllTodoItems(models.getAll());
+    modelsAccessMethods.removeItem(todo[1]);
+    views.renderAllTodoItems(modelsAccessMethods.getAll());
   }
   function makeTodoEditable(todo) {
     todo[3] = true;
-    views.renderAllTodoItems(models.getAll());
+    views.renderAllTodoItems(modelsAccessMethods.getAll());
   }
   function applyEdit(textNode, todoItem) {
     todoItem[0] = textNode.innerText;
     todoItem[3] = false;
-    views.renderAllTodoItems(models.getAll());
+    views.renderAllTodoItems(modelsAccessMethods.getAll());
   }
   function markAsDone(todo) {
     todo[4] = true;
-    views.renderAllTodoItems(models.getAll());
+    views.renderAllTodoItems(modelsAccessMethods.getAll());
   }
   function markAsNotDone(todo) {
     todo[4] = false;
-    views.renderAllTodoItems(models.getAll());
+    views.renderAllTodoItems(modelsAccessMethods.getAll());
   }
   return {
     removeTodo: removeTodo,
@@ -56,5 +56,24 @@ function createControllerModule() {
     markAsNotDone: markAsNotDone,
     makeVisibleElementsWithClass: makeVisibleElementsWithClass,
     hideElementsWithClass: hideElementsWithClass
+  }
+}
+
+var modelsAccessMethods = {
+  addItem: function(todoDescription, visible=true, editable=false, done=false) {
+    if (!todoDescription) {
+      return;
+    }
+    models.items.push([todoDescription, models.items.length, visible, editable, done]);
+    return models.items.length -1 ; 
+  },
+  removeItem: function (todoIndex) {
+    models.items.splice(todoIndex, 1) ;
+  },
+  getLastItem: function() {
+    return models.items[items.length - 1];
+  },
+  getAll: function() {
+    return models.items;
   }
 }
