@@ -16,11 +16,11 @@
     </div>
     <div id="leftPanel">
       <input type="text" class="stack-item" id="descriptionInput">
-      <button class="stack-item button createButton" onclick="addTodo()">New todo</button>
+      <button id="addTodo" class="stack-item button createButton" >New todo</button>
       <hr />  
-      <button class="stack-item button yellowButton" onclick="makeVisibleElementsWithClass() & hideElementsWithClass('not-completed')">Completed</button>  
-      <button class="stack-item button yellowButton" onclick="makeVisibleElementsWithClass() & hideElementsWithClass('completed')">Active</button>  
-      <button class="stack-item button yellowButton" onclick="makeVisibleElementsWithClass()">All</button>  
+      <button id="filterNotCompleted" class="stack-item button yellowButton" >Completed</button>  
+      <button id="filterCompleted" class="stack-item button yellowButton" >Active</button>  
+      <button id="showAll" class="stack-item button yellowButton" >All</button>  
     </div>
   </div>
   <!-- order of loading scripts matter!-->

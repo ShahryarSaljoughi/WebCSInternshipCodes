@@ -1,21 +1,68 @@
 
 
 function createViewsModule() {
+  controller = createControllerModule();
   var iconsModule = createIconModule();
   let panel = document.getElementById("rightPanel");
 
+  var addTodoButton = document.getElementById("addTodo");
+  addTodoButton.addEventListener("click", ev => {
+    var description = document.getElementById("descriptionInput").value;
+    controller.addTodo(description);
+    document.getElementById("descriptionInput").value = "";
+  });
+
+  var filterNotCompletedButton = document.getElementById("filterNotCompleted");
+  filterNotCompletedButton.addEventListener("click", ev => {
+    controller.makeVisibleElementsWithClass();
+    controller.hideElementsWithClass('not-completed');
+  });
+  var filterCompletedButton = document.getElementById("filterCompleted");
+  filterCompletedButton.addEventListener("click", ev => {
+    controller.makeVisibleElementsWithClass();
+    controller.hideElementsWithClass('completed');
+  });
+  var showAllButton = document.getElementById("showAll");
+  showAllButton.addEventListener("click", () => {
+    controller.makeVisibleElementsWithClass();
+  })
+
+  function renderAllTodoItems(todoArray) {
+    panel.innerHTML = "";
+    todoArray.forEach(element => {
+      var isVisible = element[2];
+      if (isVisible) {
+        renderTodo(element);
+      }
+    });
+  }
+
   /**
-   * @param  {{todoDescription: string, todoIndex: number}} todo
+   * @param  {{todoDescription: string, todoIndex: number, visible: boolean}} todo
    */
-  function showTodo(todo) {
-  
+  function renderTodo(todo) {
+    var todoInEditableMode = todo[3];
+    var todoIsDone = todo[4];
+    
     var newTodo = document.createElement("div");
     var textNode = document.createElement("span");
     var removeButton = document.createElement("span");
     var editButton = document.createElement("span"); 
     var completionCheckbox = document.createElement("input");
     
-    newTodo.classList.add("todo", "not-completed", "parent-of-hidden");
+    if(todoIsDone) {
+      newTodo.classList.add("completed");
+      completionCheckbox.checked = true;
+    } else {
+      newTodo.classList.add("not-completed");
+    }
+
+    if (todoInEditableMode) {
+      textNode.classList.add("todo-edit-mode");
+      textNode.contentEditable = "true";
+    }
+
+    newTodo.classList.add("todo", "parent-of-hidden");
     removeButton.classList.add("remove-icon", "position-right", "visible-if-parent-hovered");
     textNode.classList.add("todo-text");
     editButton.classList.add("edit-icon", "visible-if-parent-hovered");
@@ -31,46 +78,27 @@ function createViewsModule() {
     newTodo.insertBefore(completionCheckbox, newTodo.firstChild);
 
     iconsModule.triggerRendering();
-  
-    return {
-      completionCheckBox: completionCheckbox,
-      removeButton: removeButton,
-      editButton: editButton,
-      textNode: textNode,
-      todoNode: newTodo,
-      applyCompletedTodoStyle: () => applyCompletedTodoStyle(newTodo),
-      applyNotCompletedTodoStyle: () => applyNotCompletedTodoStyle(newTodo),
-      removeTodo: () => removeTodo(newTodo),
-      editTodo: () => activateEditMode(textNode),
-      extEditing: (todoItem) => deactivateEditMode(textNode, todoItem),
-    }
-    // both remove button and a function to remove the todo is returned. remove button does not call the remove function.
-    // this is because, controller is the one who decides what happens when the remove button is pressed.
-    // controller will bind the button to that function.
-  }
 
-  function applyCompletedTodoStyle(todoNode) {
-    todoNode.classList.remove("not-completed");
-    todoNode.classList.add("completed");
-  }
-  function applyNotCompletedTodoStyle(todoNode) {
-    todoNode.classList.remove("completed");
-    todoNode.classList.add("not-completed");
-  }
-  function removeTodo(todoNode) {
-    panel.removeChild(todoNode);
-  }
-  function activateEditMode(textNode) {
-    textNode.classList.add("todo-edit-mode");
-    textNode.contentEditable = "true";
-  }
-  function deactivateEditMode(textNode, todoItem) {
-    todoItem[0] = textNode.innerText;
-    textNode.classList.remove("todo-edit-mode");
-    textNode.contentEditable = "false";
+    removeButton.addEventListener("click", () => {  
+      controller.removeTodo(todo);
+    });
+    editButton.addEventListener("click", ev => {
+      controller.makeTodoEditable(todo);
+    });
+    textNode.addEventListener("blur", ev => {
+      controller.applyEdit(textNode, todo);
+    });
+    completionCheckbox.onchange = () => {
+      if (completionCheckbox.checked) {
+        controller.markAsDone(todo);
+      } else {
+        controller.markAsNotDone(todo);
+      }
+    }
+
   }
 
   return {
-    createTodoView: showTodo
+    renderAllTodoItems: renderAllTodoItems
   }
 }

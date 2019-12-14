@@ -1,49 +1,60 @@
 var models = createModelsModule();
 var views = createViewsModule();
-
-function addTodo() {
-  description = document.getElementById("descriptionInput").value;
-  if (!description) {return;}
-  var todoItemIndex = models.addItem(description);
-  document.getElementById("descriptionInput").value = "";
-  var todoView = views.createTodoView(models.getLastItem());
+function createControllerModule() {
+  function addTodo(description) {
+    if (!description) {return;}
+    var todoItemIndex = models.addItem(description);
+    views.renderAllTodoItems(models.getAll());
+  }
   
-  todoView.removeButton.addEventListener("click", () => {
-    todoView.removeTodo();
-    models.removeItem(todoItemIndex);
-  });
-  
-  todoView.completionCheckBox.onchange = () => {
-    if (todoView.completionCheckBox.checked) {
-      todoView.applyCompletedTodoStyle();
-    } else {
-      todoView.applyNotCompletedTodoStyle();
+  /**
+   * @param  {string} className
+   */
+  function hideElementsWithClass(className) {
+    elements = document.getElementsByClassName(className);
+    
+    for(var elem of elements) {
+      elem.classList.add("hidden");
     }
   }
-
-  todoView.editButton.addEventListener("click", ev => {
-    todoView.editTodo();
-  });
-  todoView.textNode.addEventListener("blur", ev => {
-    todoView.extEditing(models.getAll()[todoItemIndex]);
-  })
-}
-
-/**
- * @param  {string} className
- */
-function hideElementsWithClass(className) {
-  elements = document.getElementsByClassName(className);
   
-  for(var elem of elements) {
-    elem.classList.add("hidden");
+  function makeVisibleElementsWithClass(className) {
+    if(!className) { className = "todo";}
+    var elements = document.getElementsByClassName(className);
+    for(var elem of elements) {
+      elem.classList.remove("hidden");
+    }
   }
-}
-
-function makeVisibleElementsWithClass(className) {
-  if(!className) { className = "todo";}
-  var elements = document.getElementsByClassName(className);
-  for(var elem of elements) {
-    elem.classList.remove("hidden");
+  
+  function removeTodo(todo) {
+    models.removeItem(todo[1]);
+    views.renderAllTodoItems(models.getAll());
+  }
+  function makeTodoEditable(todo) {
+    todo[3] = true;
+    views.renderAllTodoItems(models.getAll());
+  }
+  function applyEdit(textNode, todoItem) {
+    todoItem[0] = textNode.innerText;
+    todoItem[3] = false;
+    views.renderAllTodoItems(models.getAll());
+  }
+  function markAsDone(todo) {
+    todo[4] = true;
+    views.renderAllTodoItems(models.getAll());
+  }
+  function markAsNotDone(todo) {
+    todo[4] = false;
+    views.renderAllTodoItems(models.getAll());
+  }
+  return {
+    removeTodo: removeTodo,
+    addTodo: addTodo,
+    makeTodoEditable: makeTodoEditable,
+    applyEdit: applyEdit,
+    markAsDone: markAsDone,
+    markAsNotDone: markAsNotDone,
+    makeVisibleElementsWithClass: makeVisibleElementsWithClass,
+    hideElementsWithClass: hideElementsWithClass
   }
 }
