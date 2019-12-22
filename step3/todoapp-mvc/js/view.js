@@ -1,38 +1,51 @@
 
 
-function createViewsModule() {
-  controller = createControllerModule();
-  var iconsModule = createIconModule();
-  let panel = document.getElementById("rightPanel");
+var View = (function createViewsModule() {
+  
+  var panel; // initialized in init. used all over this file.
 
-  var addTodoButton = document.getElementById("addTodo");
-  addTodoButton.addEventListener("click", ev => {
-    var description = document.getElementById("descriptionInput").value;
-    controller.addTodo(description);
-    document.getElementById("descriptionInput").value = "";
-  });
+  //constructor
+  function View() {
+    this.iconModule = createIconModule();
+  }
 
-  var filterNotCompletedButton = document.getElementById("filterNotCompleted");
-  filterNotCompletedButton.addEventListener("click", ev => {
-    makeVisibleElementsWithClass();
-    hideElementsWithClass('not-completed');
-  });
-  var filterCompletedButton = document.getElementById("filterCompleted");
-  filterCompletedButton.addEventListener("click", ev => {
-    makeVisibleElementsWithClass();
-    hideElementsWithClass('completed');
-  });
-  var showAllButton = document.getElementById("showAll");
-  showAllButton.addEventListener("click", () => {
-    makeVisibleElementsWithClass();
-  })
+  View.prototype.init = function (controllerApi) {
+    this.controllerApi = controllerApi;
+
+    panel = document.getElementById("rightPanel");
+
+    var addTodoButton = document.getElementById("addTodo");
+    addTodoButton.addEventListener("click", ev => {
+      var description = document.getElementById("descriptionInput").value;
+      this.controllerApi.addTodo(description);
+      document.getElementById("descriptionInput").value = "";
+    });
+
+    var filterNotCompletedButton = document.getElementById("filterNotCompleted");
+    filterNotCompletedButton.addEventListener("click", ev => {
+      makeVisibleElementsWithClass();
+      hideElementsWithClass('not-completed');
+    });
+    var filterCompletedButton = document.getElementById("filterCompleted");
+    filterCompletedButton.addEventListener("click", ev => {
+      makeVisibleElementsWithClass();
+      hideElementsWithClass('completed');
+    });
+    var showAllButton = document.getElementById("showAll");
+    showAllButton.addEventListener("click", () => {
+      makeVisibleElementsWithClass();
+    })
+  }
+  View.prototype.renderAllTodoItems = renderAllTodoItems;
+  
+  return View;
 
   function renderAllTodoItems(todoArray) {
     panel.innerHTML = "";
     todoArray.forEach(element => {
       var isVisible = element[2];
       if (isVisible) {
-        renderTodo(element);
+        renderTodo.call(this, element);
       }
     });
   }
@@ -60,6 +73,7 @@ function createViewsModule() {
     if (todoInEditableMode) {
       textNode.classList.add("todo-edit-mode");
       textNode.contentEditable = "true";
+      // textNode.focus();
     }
 
     newTodo.classList.add("todo", "parent-of-hidden");
@@ -77,22 +91,22 @@ function createViewsModule() {
     
     newTodo.insertBefore(completionCheckbox, newTodo.firstChild);
 
-    iconsModule.triggerRendering();
+    this.iconModule.triggerRendering();
 
     removeButton.addEventListener("click", () => {  
-      controller.removeTodo(todo);
+      this.controllerApi.removeTodo(todo);
     });
     editButton.addEventListener("click", ev => {
-      controller.makeTodoEditable(todo);
+      this.controllerApi.makeTodoEditable(todo);
     });
     textNode.addEventListener("blur", ev => {
-      controller.applyEdit(textNode, todo);
+      this.controllerApi.applyEdit(textNode, todo);
     });
     completionCheckbox.onchange = () => {
       if (completionCheckbox.checked) {
-        controller.markAsDone(todo);
+        this.controllerApi.markAsDone(todo);
       } else {
-        controller.markAsNotDone(todo);
+        this.controllerApi.markAsNotDone(todo);
       }
     }
 
@@ -115,7 +129,5 @@ function createViewsModule() {
       elem.classList.remove("hidden");
     }
   }
-  return {
-    renderAllTodoItems: renderAllTodoItems
-  }
-}
+ 
+})();
